@@ -1,0 +1,378 @@
+{
+  "info": {
+    "name": "API Playground - Posts y Comentarios",
+    "description": "Colección completa para practicar métodos HTTP con la API de posts y comentarios",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "📋 Información de la API",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": ["{{base_url}}"],
+          "path": [""]
+        }
+      }
+    },
+    {
+      "name": "📝 Posts",
+      "item": [
+        {
+          "name": "GET - Obtener todos los posts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/posts",
+              "host": ["{{base_url}}"],
+              "path": ["posts"]
+            }
+          }
+        },
+        {
+          "name": "GET - Obtener post específico",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/posts/1",
+              "host": ["{{base_url}}"],
+              "path": ["posts", "1"]
+            }
+          }
+        },
+        {
+          "name": "POST - Crear nuevo post",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Mi nuevo post desde Postman\",\n  \"contenido\": \"Este es el contenido de mi post creado desde Postman\",\n  \"autor\": \"Estudiante de APIs\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/posts",
+              "host": ["{{base_url}}"],
+              "path": ["posts"]
+            }
+          }
+        },
+        {
+          "name": "PUT - Actualizar post completo",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Post actualizado completamente\",\n  \"contenido\": \"Todo el contenido ha sido reemplazado\",\n  \"autor\": \"Autor Actualizado\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/posts/1",
+              "host": ["{{base_url}}"],
+              "path": ["posts", "1"]
+            }
+          }
+        },
+        {
+          "name": "PATCH - Actualizar post parcialmente",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Solo actualizo el título\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/posts/1",
+              "host": ["{{base_url}}"],
+              "path": ["posts", "1"]
+            }
+          }
+        },
+        {
+          "name": "DELETE - Eliminar post",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/posts/1",
+              "host": ["{{base_url}}"],
+              "path": ["posts", "1"]
+            }
+          }
+        },
+        {
+          "name": "HEAD - Headers de posts",
+          "request": {
+            "method": "HEAD",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/posts",
+              "host": ["{{base_url}}"],
+              "path": ["posts"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "💬 Comentarios",
+      "item": [
+        {
+          "name": "GET - Obtener todos los comentarios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/comentarios",
+              "host": ["{{base_url}}"],
+              "path": ["comentarios"]
+            }
+          }
+        },
+        {
+          "name": "GET - Comentarios de un post específico",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/comentarios?postId=1",
+              "host": ["{{base_url}}"],
+              "path": ["comentarios"],
+              "query": [
+                {
+                  "key": "postId",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Obtener comentario específico",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/comentarios/1",
+              "host": ["{{base_url}}"],
+              "path": ["comentarios", "1"]
+            }
+          }
+        },
+        {
+          "name": "POST - Crear nuevo comentario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"postId\": 1,\n  \"texto\": \"¡Excelente post! Me ha ayudado mucho a entender las APIs\",\n  \"autor\": \"Estudiante Entusiasta\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/comentarios",
+              "host": ["{{base_url}}"],
+              "path": ["comentarios"]
+            }
+          }
+        },
+        {
+          "name": "PUT - Actualizar comentario completo",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"texto\": \"Comentario completamente actualizado\",\n  \"autor\": \"Autor Actualizado\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/comentarios/1",
+              "host": ["{{base_url}}"],
+              "path": ["comentarios", "1"]
+            }
+          }
+        },
+        {
+          "name": "PATCH - Actualizar comentario parcialmente",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"texto\": \"Solo actualizo el texto del comentario\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/comentarios/1",
+              "host": ["{{base_url}}"],
+              "path": ["comentarios", "1"]
+            }
+          }
+        },
+        {
+          "name": "DELETE - Eliminar comentario",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/comentarios/1",
+              "host": ["{{base_url}}"],
+              "path": ["comentarios", "1"]
+            }
+          }
+        },
+        {
+          "name": "HEAD - Headers de comentarios",
+          "request": {
+            "method": "HEAD",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/comentarios",
+              "host": ["{{base_url}}"],
+              "path": ["comentarios"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🧪 Casos de Prueba",
+      "item": [
+        {
+          "name": "GET - Post no existente (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/posts/999",
+              "host": ["{{base_url}}"],
+              "path": ["posts", "999"]
+            }
+          }
+        },
+        {
+          "name": "POST - Post sin datos (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Post incompleto\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/posts",
+              "host": ["{{base_url}}"],
+              "path": ["posts"]
+            }
+          }
+        },
+        {
+          "name": "POST - Comentario para post inexistente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"postId\": 999,\n  \"texto\": \"Comentario para post que no existe\",\n  \"autor\": \"Usuario Test\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/comentarios",
+              "host": ["{{base_url}}"],
+              "path": ["comentarios"]
+            }
+          }
+        },
+        {
+          "name": "GET - Endpoint no existente (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/endpoint-inexistente",
+              "host": ["{{base_url}}"],
+              "path": ["endpoint-inexistente"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🔧 Métodos Especiales",
+      "item": [
+        {
+          "name": "OPTIONS - Métodos permitidos en posts",
+          "request": {
+            "method": "OPTIONS",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/posts",
+              "host": ["{{base_url}}"],
+              "path": ["posts"]
+            }
+          }
+        },
+        {
+          "name": "OPTIONS - Métodos permitidos en comentarios",
+          "request": {
+            "method": "OPTIONS",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/comentarios",
+              "host": ["{{base_url}}"],
+              "path": ["comentarios"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+} 
