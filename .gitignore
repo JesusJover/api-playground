@@ -97,3 +97,4 @@ worker/
 .Trashes
 ehthumbs.db
 Thumbs.db
+.wrangler/
