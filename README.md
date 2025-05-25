@@ -134,30 +134,47 @@ Ambas versiones implementan exactamente los mismos endpoints:
 | DELETE | `/comentarios/:id` | Eliminar un comentario |
 | HEAD | `/comentarios` | Obtener solo headers |
 
+### Búsquedas
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/search/posts?autor=X` | Buscar posts por autor |
+| GET | `/search/posts?q=Y` | Buscar posts por título o contenido |
+| GET | `/search/posts?autor=X&q=Y` | Buscar posts por autor Y que contengan texto |
+| GET | `/search/comentarios?autor=X` | Buscar comentarios por autor |
+| GET | `/search/comentarios?q=Y` | Buscar comentarios por contenido |
+| GET | `/search/comentarios?autor=X&q=Y` | Buscar comentarios por autor Y que contengan texto |
+
+### Testing
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | `/error500` | Simular error 500 para pruebas |
+
 ## 📝 Ejemplos de Uso con Postman
 
 Los ejemplos funcionan igual para ambas versiones. Para la versión de Workers, solo cambia la URL base.
 
 ### Local: `http://localhost:3000`
-### Workers: `https://api-playground.tu-subdominio.workers.dev`
+### Workers: `https://api-playground.jesusjover.es`
 
 ### 1. GET - Obtener todos los posts
 ```
 Método: GET
-URL: http://localhost:3000/posts
+URL: https://api-playground.jesusjover.es/posts
 Headers: (ninguno necesario)
 ```
 
 ### 2. GET - Obtener un post específico
 ```
 Método: GET
-URL: http://localhost:3000/posts/1
+URL: https://api-playground.jesusjover.es/posts/1
 ```
 
 ### 3. POST - Crear un nuevo post
 ```
 Método: POST
-URL: http://localhost:3000/posts
+URL: https://api-playground.jesusjover.es/posts
 Headers: Content-Type: application/json
 Body (JSON):
 {
@@ -170,7 +187,7 @@ Body (JSON):
 ### 4. PUT - Actualizar un post completo
 ```
 Método: PUT
-URL: http://localhost:3000/posts/1
+URL: https://api-playground.jesusjover.es/posts/1
 Headers: Content-Type: application/json
 Body (JSON):
 {
@@ -183,7 +200,7 @@ Body (JSON):
 ### 5. PATCH - Actualizar parcialmente un post
 ```
 Método: PATCH
-URL: http://localhost:3000/posts/1
+URL: https://api-playground.jesusjover.es/posts/1
 Headers: Content-Type: application/json
 Body (JSON):
 {
@@ -194,13 +211,13 @@ Body (JSON):
 ### 6. DELETE - Eliminar un post
 ```
 Método: DELETE
-URL: http://localhost:3000/posts/1
+URL: https://api-playground.jesusjover.es/posts/1
 ```
 
 ### 7. POST - Crear un comentario
 ```
 Método: POST
-URL: http://localhost:3000/comentarios
+URL: https://api-playground.jesusjover.es/comentarios
 Headers: Content-Type: application/json
 Body (JSON):
 {
@@ -213,19 +230,47 @@ Body (JSON):
 ### 8. GET - Obtener comentarios de un post específico
 ```
 Método: GET
-URL: http://localhost:3000/comentarios?postId=1
+URL: https://api-playground.jesusjover.es/comentarios?postId=1
 ```
 
 ### 9. HEAD - Obtener solo headers
 ```
 Método: HEAD
-URL: http://localhost:3000/posts
+URL: https://api-playground.jesusjover.es/posts
 ```
 
 ### 10. OPTIONS - Verificar métodos permitidos
 ```
 Método: OPTIONS
-URL: http://localhost:3000/posts
+URL: https://api-playground.jesusjover.es/posts
+```
+
+### 11. GET - Buscar posts por autor
+```
+Método: GET
+URL: https://api-playground.jesusjover.es/search/posts?autor=Juan
+Headers: (ninguno necesario)
+```
+
+### 12. GET - Buscar posts por contenido
+```
+Método: GET
+URL: https://api-playground.jesusjover.es/search/posts?q=tutorial
+Headers: (ninguno necesario)
+```
+
+### 13. GET - Buscar comentarios por autor y contenido
+```
+Método: GET
+URL: https://api-playground.jesusjover.es/search/comentarios?autor=Ana&q=excelente
+Headers: (ninguno necesario)
+```
+
+### 14. GET - Simular error 500
+```
+Método: GET
+URL: https://api-playground.jesusjover.es/error500
+Headers: (ninguno necesario)
 ```
 
 ## 🎯 Ejercicios Prácticos
@@ -253,16 +298,12 @@ URL: http://localhost:3000/posts
 2. Usa OPTIONS para ver qué métodos están permitidos
 3. Experimenta con PATCH vs PUT
 
-### Ejercicio 5: Base de Datos (Nuevo)
-1. Crea varios posts y comentarios
-2. Reinicia el servidor y verifica que los datos persisten
-3. Usa el filtro de comentarios por postId
-4. Prueba eliminar un post y observa que sus comentarios también se eliminan
-
-### Ejercicio 6: Comparar Versiones
-1. Prueba la misma funcionalidad en ambas versiones (local y Workers)
-2. Observa las diferencias en los headers de respuesta
-3. Compara el rendimiento y tiempo de respuesta
+### Ejercicio 5: Búsquedas y Testing
+1. Busca posts que contengan la palabra "tutorial" en título o contenido
+2. Busca todos los posts de un autor específico (ej: "Juan")
+3. Busca comentarios que contengan "excelente" escritos por "Ana"
+4. Prueba el endpoint de error 500 y observa la respuesta
+5. Combina búsquedas: encuentra posts de "Maria" que hablen de "programación"
 
 ## 🔧 Estructura de Datos
 

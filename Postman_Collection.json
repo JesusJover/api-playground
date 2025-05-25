@@ -7,7 +7,7 @@
   "variable": [
     {
       "key": "base_url",
-      "value": "http://localhost:3000",
+      "value": "https://api-playground.jesusjover.es",
       "type": "string"
     }
   ],
@@ -340,6 +340,160 @@
               "raw": "{{base_url}}/endpoint-inexistente",
               "host": ["{{base_url}}"],
               "path": ["endpoint-inexistente"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🔍 Búsquedas",
+      "item": [
+        {
+          "name": "GET - Buscar posts por autor",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/search/posts?autor=Juan",
+              "host": ["{{base_url}}"],
+              "path": ["search", "posts"],
+              "query": [
+                {
+                  "key": "autor",
+                  "value": "Juan",
+                  "description": "Buscar posts por autor"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Buscar posts por contenido",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/search/posts?q=tutorial",
+              "host": ["{{base_url}}"],
+              "path": ["search", "posts"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "tutorial",
+                  "description": "Buscar en título y contenido"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Buscar posts por autor y contenido",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/search/posts?autor=Maria&q=programación",
+              "host": ["{{base_url}}"],
+              "path": ["search", "posts"],
+              "query": [
+                {
+                  "key": "autor",
+                  "value": "Maria"
+                },
+                {
+                  "key": "q",
+                  "value": "programación"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Buscar comentarios por autor",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/search/comentarios?autor=Ana",
+              "host": ["{{base_url}}"],
+              "path": ["search", "comentarios"],
+              "query": [
+                {
+                  "key": "autor",
+                  "value": "Ana",
+                  "description": "Buscar comentarios por autor"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Buscar comentarios por contenido",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/search/comentarios?q=excelente",
+              "host": ["{{base_url}}"],
+              "path": ["search", "comentarios"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "excelente",
+                  "description": "Buscar en el texto del comentario"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Buscar comentarios por autor y contenido",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/search/comentarios?autor=Ana&q=excelente",
+              "host": ["{{base_url}}"],
+              "path": ["search", "comentarios"],
+              "query": [
+                {
+                  "key": "autor",
+                  "value": "Ana"
+                },
+                {
+                  "key": "q",
+                  "value": "excelente"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Búsqueda sin parámetros (400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/search/posts",
+              "host": ["{{base_url}}"],
+              "path": ["search", "posts"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🚨 Testing",
+      "item": [
+        {
+          "name": "GET - Simular error 500",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/error500",
+              "host": ["{{base_url}}"],
+              "path": ["error500"]
             }
           }
         }

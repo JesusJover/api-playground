@@ -71,6 +71,13 @@ export default {
                 "PUT /comentarios/:id": "Actualizar un comentario completo",
                 "PATCH /comentarios/:id": "Actualizar parcialmente un comentario",
                 "DELETE /comentarios/:id": "Eliminar un comentario"
+              },
+              busqueda: {
+                "GET /search/posts": "Buscar posts por autor o contenido (?autor=X&q=Y)",
+                "GET /search/comentarios": "Buscar comentarios por autor o texto (?autor=X&q=Y)"
+              },
+              testing: {
+                "GET /error500": "Simular error 500 para testing"
               }
             }
           });
@@ -474,6 +481,106 @@ export default {
         } catch (error) {
           return new Response(null, { status: 500, headers: corsHeaders });
         }
+      }
+
+      // ========== ENDPOINTS DE BÚSQUEDA ==========
+
+      // GET /search/posts - Buscar posts por autor o contenido
+      if (pathname === '/search/posts' && method === 'GET') {
+        try {
+          const urlParams = new URLSearchParams(url.search);
+          const autor = urlParams.get('autor');
+          const q = urlParams.get('q'); // query de búsqueda en título o contenido
+          
+          if (!autor && !q) {
+            return createResponse({
+              error: "Parámetros requeridos",
+              mensaje: "Debe proporcionar al menos uno: 'autor' o 'q' (búsqueda de texto)"
+            }, 400);
+          }
+
+          let query = 'SELECT * FROM posts WHERE ';
+          let params = [];
+          let conditions = [];
+
+          if (autor) {
+            conditions.push('autor LIKE ?');
+            params.push(`%${autor}%`);
+          }
+
+          if (q) {
+            conditions.push('(titulo LIKE ? OR contenido LIKE ?)');
+            params.push(`%${q}%`, `%${q}%`);
+          }
+
+          query += conditions.join(' AND ') + ' ORDER BY fechaCreacion DESC';
+          
+          const { results } = await db.prepare(query).bind(...params).all();
+          
+          return createResponse({
+            mensaje: "Resultados de búsqueda de posts",
+            criterios: { autor, q },
+            total: results.length,
+            posts: results
+          });
+        } catch (error) {
+          return createErrorResponse(error, "Error al buscar posts");
+        }
+      }
+
+      // GET /search/comentarios - Buscar comentarios por autor o contenido
+      if (pathname === '/search/comentarios' && method === 'GET') {
+        try {
+          const urlParams = new URLSearchParams(url.search);
+          const autor = urlParams.get('autor');
+          const q = urlParams.get('q'); // query de búsqueda en texto
+          
+          if (!autor && !q) {
+            return createResponse({
+              error: "Parámetros requeridos",
+              mensaje: "Debe proporcionar al menos uno: 'autor' o 'q' (búsqueda de texto)"
+            }, 400);
+          }
+
+          let query = 'SELECT * FROM comentarios WHERE ';
+          let params = [];
+          let conditions = [];
+
+          if (autor) {
+            conditions.push('autor LIKE ?');
+            params.push(`%${autor}%`);
+          }
+
+          if (q) {
+            conditions.push('texto LIKE ?');
+            params.push(`%${q}%`);
+          }
+
+          query += conditions.join(' AND ') + ' ORDER BY fechaCreacion DESC';
+          
+          const { results } = await db.prepare(query).bind(...params).all();
+          
+          return createResponse({
+            mensaje: "Resultados de búsqueda de comentarios",
+            criterios: { autor, q },
+            total: results.length,
+            comentarios: results
+          });
+        } catch (error) {
+          return createErrorResponse(error, "Error al buscar comentarios");
+        }
+      }
+
+      // ========== ENDPOINT DE PRUEBA DE ERROR ==========
+
+      // GET /error500 - Simular error 500 para testing
+      if (pathname === '/error500' && method === 'GET') {
+        return createResponse({
+          error: "Error interno simulado",
+          mensaje: "Este endpoint simula un error 500 para propósitos de testing",
+          codigo: 500,
+          timestamp: new Date().toISOString()
+        }, 500);
       }
 
       // Ruta no encontrada
